@@ -1,5 +1,81 @@
 pico-8 cartridge // http://www.pico-8.com
 version 43
+__lua__
+local food = {x=0, y=0}
+local player = {{x=8, y=8}}
+local dir = {x=-1, y=0}
+local delay = 5
+local tick = 0
+local score = 0
+local debug = true
+local over = false
+
+function spawn_food()
+  food.x = flr(rnd(16))
+  food.y = flr(rnd(16))
+end
+
+function _init()
+  spawn_food()
+
+  player.x = flr(rnd(16))
+  player.y = flr(rnd(16))
+end
+
+function _update()
+  local head = player[1]
+
+  if over then
+    return
+  end
+
+  // Handle buttons
+  if btn(0) then dir = {x = -1, y = 0} end
+  if btn(1) then dir = {x = 1, y = 0} end
+  if btn(2) then dir = {x = 0, y = -1} end
+  if btn(3) then dir = {x = 0, y = 1} end
+
+  // Handle score increase
+  if head.x == food.x and head.y == food.y then
+      spawn_food()
+      score += 1
+  end
+
+  // Handle game over
+  if head.x > 16 or head.x < 0 or head.y > 16 or head.y < 0 then
+    over = true
+  end
+
+  // Handle player position change
+  if tick < delay then
+      tick += 1
+      return
+  end
+  tick = 0
+
+  head.x += dir.x
+  head.y += dir.y
+end
+
+function _draw()
+  cls()
+  
+  print("score: "..score, 0, 0, 7)
+  if debug then
+    print("player x: "..player[1].x..", y:"..player[1].y, 0, 9, 7)
+    print("food x: "..food.x..", y:"..food.y, 0, 17, 7)
+  end
+
+  if over then
+    print("game over", 45, 64, 7)
+    return
+  end
+
+  spr(0, food.x * 8, food.y * 8)
+  for i, seg in ipairs(player) do
+    spr(i == 1 and 1 or 2, seg.x * 8, seg.y * 8)
+  end
+end
 __gfx__
 00330000333333333333333300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 00033000307333333333333300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
