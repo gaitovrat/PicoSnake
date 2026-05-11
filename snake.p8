@@ -37,15 +37,17 @@ function _update()
 
   // Handle score increase
   if head.x == food.x and head.y == food.y then
-      spawn_food()
-      score += 1
-      if delay > 0 then
-        delay -= 1
-      end
+    sfx(0)
+    spawn_food()
+    score += 1
+    if score % 2 == 0 and delay > 0 then
+      delay -= 1
+    end
   end
 
   // Handle game over
-  if head.x > 16 or head.x < 0 or head.y > 16 or head.y < 0 then
+  if head.x > 15 or head.x < 0 or head.y > 15 or head.y < 0 then
+    sfx(1)
     over = true
   end
 
