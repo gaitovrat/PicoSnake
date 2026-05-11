@@ -4,7 +4,7 @@ __lua__
 local food = {x=0, y=0}
 local player = {{x=8, y=8}}
 local dir = {x=-1, y=0}
-local delay = 5
+local delay = 10
 local tick = 0
 local score = 0
 local debug = true
@@ -39,6 +39,9 @@ function _update()
   if head.x == food.x and head.y == food.y then
       spawn_food()
       score += 1
+      if delay > 0 then
+        delay -= 1
+      end
   end
 
   // Handle game over
@@ -73,7 +76,7 @@ function _draw()
 
   spr(0, food.x * 8, food.y * 8)
   for i, seg in ipairs(player) do
-    spr(i == 1 and 1 or 2, seg.x * 8, seg.y * 8)
+    spr(i == 1 and 1 or 2, seg.x * 8, seg.y * 8, 1, 1, dir.x == 1, dir.y == 1)
   end
 end
 __gfx__
