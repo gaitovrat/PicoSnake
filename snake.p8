@@ -42,9 +42,8 @@ function _update()
     score += 1
     local tail = player[#player]
     add(player, {x=tail.x, y=tail.y})
-    if score % 2 == 0 and delay > 0 then
-      delay -= 1
-    end
+    // sqrt curve: fast speedup early, levels off; floor 2 keeps game playable
+    delay = max(2, flr(10 - sqrt(score)))
   end
 
   // Handle game over
