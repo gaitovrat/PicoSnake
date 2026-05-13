@@ -12,8 +12,8 @@ exit /b 1
 
 :install
 if not exist "!CART_DIR!" mkdir "!CART_DIR!"
-echo Copying %CD%\snake.p8 to !CART_FILE!
-copy /Y "%CD%\snake.p8" "!CART_FILE!"
+echo Copying %CD%\carts\snake.p8 to !CART_FILE!
+copy /Y "%CD%\carts\snake.p8" "!CART_FILE!"
 goto end
 
 :clean
