@@ -40,6 +40,8 @@ function _update()
     sfx(0)
     spawn_food()
     score += 1
+    local tail = player[#player]
+    add(player, {x=tail.x, y=tail.y})
     if score % 2 == 0 and delay > 0 then
       delay -= 1
     end
@@ -57,6 +59,11 @@ function _update()
       return
   end
   tick = 0
+
+  for i = #player, 2, -1 do
+    player[i].x = player[i-1].x
+    player[i].y = player[i-1].y
+  end
 
   head.x += dir.x
   head.y += dir.y
