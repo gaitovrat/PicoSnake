@@ -65,6 +65,16 @@ function _update()
 
   head.x += dir.x
   head.y += dir.y
+
+  // self-collision must be checked after the move: when the snake grows,
+  // the new tail segment briefly shares the head's cell until movement separates them
+  for i = 2, #player do
+    if head.x == player[i].x and head.y == player[i].y then
+      sfx(1)
+      over = true
+      break
+    end
+  end
 end
 
 function _draw()
@@ -75,9 +85,7 @@ function _draw()
   local sc_text = "score "..score
   local lvl_text = "level "..(11 - delay)
   local lvl_x = 127 - #lvl_text * 4
-  print(sc_text, 3, 2, 0)
   print(sc_text, 2, 1, 7)
-  print(lvl_text, lvl_x + 1, 2, 0)
   print(lvl_text, lvl_x, 1, 10)
 
   if over then
