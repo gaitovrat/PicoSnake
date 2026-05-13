@@ -2,7 +2,10 @@
 
 A classic Snake clone built with [PICO-8](https://www.lexaloffle.com/pico-8.php).
 
+**[Play online on github pages](https://gaitovrat.github.io/PicoSnake/)**
+
 ![Gameplay screenshot](imgs/game.png)
+
 
 ## Gameplay
 
