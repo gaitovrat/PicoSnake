@@ -14,17 +14,25 @@ function spawn_food()
   food.y = flr(rnd(16))
 end
 
-function _init()
+function reset()
+  player = {{x=8, y=8}}
+  dir = {x=-1, y=0}
+  delay = 10
+  tick = 0
+  score = 0
+  over = false
   spawn_food()
+end
 
-  player.x = flr(rnd(16))
-  player.y = flr(rnd(16))
+function _init()
+  reset()
 end
 
 function _update()
   local head = player[1]
 
   if over then
+    if btnp(4) or btnp(5) then reset() end
     return
   end
 
@@ -90,6 +98,7 @@ function _draw()
 
   if over then
     print("game over", 45, 64, 7)
+    print("press z to restart", 28, 74, 6)
     return
   end
 
