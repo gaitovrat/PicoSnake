@@ -7,7 +7,6 @@ local dir = {x=-1, y=0}
 local delay = 10
 local tick = 0
 local score = 0
-local debug = true
 local over = false
 
 function spawn_food()
@@ -70,12 +69,16 @@ end
 
 function _draw()
   cls()
-  
-  print("score: "..score, 0, 0, 7)
-  if debug then
-    print("player x: "..player[1].x..", y:"..player[1].y, 0, 9, 7)
-    print("food x: "..food.x..", y:"..food.y, 0, 17, 7)
-  end
+  rect(0, 0, 127, 127, 5)
+
+  // hud: drop shadow keeps text legible when snake passes underneath
+  local sc_text = "score "..score
+  local lvl_text = "level "..(11 - delay)
+  local lvl_x = 127 - #lvl_text * 4
+  print(sc_text, 3, 2, 0)
+  print(sc_text, 2, 1, 7)
+  print(lvl_text, lvl_x + 1, 2, 0)
+  print(lvl_text, lvl_x, 1, 10)
 
   if over then
     print("game over", 45, 64, 7)
